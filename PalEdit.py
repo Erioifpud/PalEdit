@@ -8,6 +8,8 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter import messagebox
 from PIL import ImageTk, Image
 
+from Translate import SkillDescTranslate, SkillNameTranslate, Translate, ElementTranslate, GenderTranslate
+
 global palbox
 palbox = []
 global unknown
@@ -28,20 +30,20 @@ def onselect(evt):
     w = evt.widget
     if (len(w.curselection())== 0):
         return
-    
+
     index = int(w.curselection()[0])
 
     pal = palbox[index]
     palname.config(text=pal.GetName())
 
     g = pal.GetGender()
-    palgender.config(text=g, fg=PalGender.MALE.value if g == "Male ♂" else PalGender.FEMALE.value)
+    palgender.config(text=GenderTranslate.get(g), fg=PalGender.MALE.value if g == "Male ♂" else PalGender.FEMALE.value)
 
     title.config(text=f"Data - Lv. {pal.GetLevel()}")
     portrait.config(image=pal.GetImage())
 
-    ptype.config(text=pal.GetPrimary().GetName(), bg=pal.GetPrimary().GetColour())
-    stype.config(text=pal.GetSecondary().GetName(), bg=pal.GetSecondary().GetColour())
+    ptype.config(text=ElementTranslate.get(pal.GetPrimary().GetName()), bg=pal.GetPrimary().GetColour())
+    stype.config(text=ElementTranslate.get(pal.GetSecondary().GetName()), bg=pal.GetSecondary().GetColour())
 
     palatk.config(text=f"{pal.GetAttackMelee()}⚔/{pal.GetAttackRanged()}🏹")
     paldef.config(text=pal.GetDefence())
@@ -56,7 +58,7 @@ def onselect(evt):
             skills[i].set("Unknown")
         else:
             skills[i].set(PalSkills[s[i]].value)
-    
+
 
 def changetext(num):
     global palbox
@@ -71,31 +73,33 @@ def changetext(num):
         return
 
     if num == -1:
-        skilllabel.config(text="Hover a skill to see it's description")
+        skilllabel.config(text=Translate.get("HoverSkill"))
         return
     if skills[num].get() == "Unknown":
-        skilllabel.config(text=f"{pal.GetSkills()[num]}{SkillDesc['Unknown']}")
+        # skilllabel.config(text=f"{pal.GetSkills()[num]}{SkillDesc['Unknown']}")
+        skilllabel.config(text=f"{pal.GetSkills()[num]}{SkillDescTranslate['Unknown']}")
         return
-    skilllabel.config(text=SkillDesc[skills[num].get()])
+    # skilllabel.config(text=SkillDesc[skills[num].get()])
+    skilllabel.config(text=SkillDescTranslate[skills[num].get()])
 
-    
+
 def loadfile():
     global palbox
     global data
     palbox = []
     listdisplay.delete(0,END)
-    skilllabel.config(text="Loading save, please be patient...")
-    
+    skilllabel.config(text=Translate.get("Loading save, please be patient..."))
+
     file = askopenfilename(filetype=[("All files", "*.sav *.sav.json *.pson"),("Palworld Saves", "*.sav *.sav.json"),("Palworld Box", "*.pson")])
     print(f"Opening file {file}")
 
     if not file.endswith(".pson") and not file.endswith("Level.sav.json"):
         if file.endswith("Level.sav"):
-            answer = messagebox.askquestion("Incorrect file", "This save hasn't been decompiled. Would you like to download the decompiler?\n\nCredit for Decompiler goes to 'cheahjs'\nhttps://github.com/cheahjs/palworld-save-tools")
+            answer = messagebox.askquestion("Incorrect file", Translate.get("This save hasn't been decompiled. Would you like to download the decompiler?\n\nCredit for Decompiler goes to 'cheahjs'\nhttps://github.com/cheahjs/palworld-save-tools"))
             if answer == "yes":
                 webbrowser.open_new("https://github.com/cheahjs/palworld-save-tools")
         else:
-            messagebox.showerror("Incorrect file", "This is not the right file. Please select the Level.sav file.")
+            messagebox.showerror("Incorrect file", Translate.get("This is not the right file. Please select the Level.sav file."))
         changetext(-1)
         return
 
@@ -121,7 +125,7 @@ def loadfile():
             listdisplay.insert(END, p.GetObject().GetName())
         except Exception as e:
             unknown.append(i)
-            print(f"Error occured: {e}")        
+            print(f"Error occured: {e}")
     print(f"Unknown list contains {len(unknown)} entries")
     #for i in unknown:
         #print (i)
@@ -134,7 +138,7 @@ def savefile():
     global palbox
     global data
     skilllabel.config(text="Saving, please be patient... (it can take up to 5 minutes in large files)")
-    
+
     file = asksaveasfilename(filetype=[("All files", "*.sav.json *.pson"),("Palworld Saves", "*.sav.json"),("Palworld Box", "*.pson")])
     print(f"Opening file {file}")
 
@@ -180,12 +184,12 @@ def changeivs():
         return
     i = int(listdisplay.curselection()[0])
     pal = palbox[i]
-    
+
     def change():
         global palbox
         if len(palbox) == 0:
             return
-        
+
         pal.SetAttackMelee(mval.get())
         pal.SetAttackRanged(rval.get())
 
@@ -218,7 +222,7 @@ def changelevel():
         return
     i = int(listdisplay.curselection()[0])
     pal = palbox[i]
-    
+
     def change():
         global palbox
         if len(palbox) == 0:
@@ -235,7 +239,7 @@ def changelevel():
 
     value = IntVar()
     value.set(pal.GetLevel())
-    
+
     entry = Entry(win, textvariable=value)
     entry.pack()
     update = Button(win, text="OK", command=change)
@@ -294,42 +298,42 @@ ftsize = 18
 
 typeview = Frame(deckview)
 typeview.pack(fill=X)
-ptype = Label(typeview, text="Grass", font=("Arial", ftsize), bg=Elements.LEAF.value.GetColour(), width=6)
+ptype = Label(typeview, text=ElementTranslate.get("Grass"), font=("Arial", ftsize), bg=Elements.LEAF.value.GetColour(), width=6)
 ptype.pack(side=LEFT, expand=True, fill=X)
-stype = Label(typeview, text="None", font=("Arial", ftsize), bg=Elements.NONE.value.GetColour(), width=6)
+stype = Label(typeview, text=ElementTranslate.get("None"), font=("Arial", ftsize), bg=Elements.NONE.value.GetColour(), width=6)
 stype.pack(side=RIGHT, expand=True, fill=X)
 
 nameview = Frame(deckview)
 nameview.pack(fill=X)
-name = Label(nameview, text="Name", font=("Arial", ftsize), bg="lightgrey", width=6)
+name = Label(nameview, text=Translate.get("Name"), font=("Arial", ftsize), bg="lightgrey", width=6)
 name.pack(side=LEFT, expand=True, fill=X)
 palname = Label(nameview, text="Mossanda", font=("Arial", ftsize), width=6)
 palname.pack(side=RIGHT, expand=True, fill=X)
 
 genderview = Frame(deckview)
 genderview.pack(fill=X)
-gender = Label(genderview, text="Gender", font=("Arial", ftsize), bg="lightgrey", width=6)
+gender = Label(genderview, text=Translate.get("Gender"), font=("Arial", ftsize), bg="lightgrey", width=6)
 gender.pack(side=LEFT, expand=True, fill=X)
-palgender = Label(genderview, text="Male ♂", font=("Arial", ftsize), fg=PalGender.MALE.value, width=6)
+palgender = Label(genderview, text=GenderTranslate.get("Male ♂"), font=("Arial", ftsize), fg=PalGender.MALE.value, width=6)
 palgender.pack(side=RIGHT, expand=True, fill=X)
 
 attackview = Frame(deckview)
 attackview.pack(fill=X)
-attack = Label(attackview, text="Attack", font=("Arial", ftsize), bg="lightgrey", width=6)
+attack = Label(attackview, text=Translate.get("Attack"), font=("Arial", ftsize), bg="lightgrey", width=6)
 attack.pack(side=LEFT, expand=True, fill=X)
 palatk = Label(attackview, text="0", font=("Arial", ftsize), width=6)
 palatk.pack(side=RIGHT, expand=True, fill=X)
 
 defenceview = Frame(deckview)
 defenceview.pack(fill=X)
-defence = Label(defenceview, text="Defence", font=("Arial", ftsize), bg="lightgrey", width=6)
+defence = Label(defenceview, text=Translate.get("Defence"), font=("Arial", ftsize), bg="lightgrey", width=6)
 defence.pack(side=LEFT, expand=True, fill=X)
 paldef = Label(defenceview, text="0", font=("Arial", ftsize), width=6)
 paldef.pack(side=RIGHT, expand=True, fill=X)
 
 workview = Frame(deckview)
 workview.pack(fill=X)
-workspeed = Label(workview, text="Workspeed", font=("Arial", ftsize), bg="lightgrey", width=6)
+workspeed = Label(workview, text=Translate.get("Workspeed"), font=("Arial", ftsize), bg="lightgrey", width=6)
 workspeed.pack(side=LEFT, expand=True, fill=X)
 palwsp = Label(workview, text="0", font=("Arial", ftsize), width=6)
 palwsp.pack(side=RIGHT, expand=True, fill=X)
@@ -344,10 +348,12 @@ botview.pack(fill=BOTH, expand=True)
 
 skills = [StringVar(), StringVar(), StringVar(), StringVar()]
 for i in range(0, 4):
-    skills[i].set("Unknown")
+    # skills[i].set("Unknown")
+    skills[i].set(SkillNameTranslate.get("Unknown"))
     skills[i].trace("w", lambda *args, num=i: changeskill(num))
 
 op = [e.value for e in PalSkills]
+
 op.pop(0)
 skilldrops = [
     OptionMenu(topview, skills[0], *op),
@@ -365,7 +371,7 @@ skilldrops[2].config(font=("Arial", ftsize), width=6)
 skilldrops[3].pack(side=RIGHT, expand=True, fill=BOTH)
 skilldrops[3].config(font=("Arial", ftsize), width=6)
 
-skilllabel = Label(skillview, text="Hover a skill to see it's description")
+skilllabel = Label(skillview, text=Translate.get("Hover a skill to see it's description"))
 skilllabel.pack()
 
 skilldrops[0].bind("<Enter>", lambda evt, num=0: changetext(num))

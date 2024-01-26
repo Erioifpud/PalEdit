@@ -1,10 +1,11 @@
 from enum import Enum
 from PIL import ImageTk, Image
+from Translate import SkillNameTranslate
 
 SkillDesc = {
         "Unknown": " does not exist or is not in our database yet",
         "None": "The pal has no skill in this slot",
-        
+
         "Abnormal": "-10% damage received from Neutral attacks",
         "Cheery": "-10% damage received from Dark attacks",
         "Dragonkiller": "-10% damage received from Dragon attacks",
@@ -39,7 +40,7 @@ SkillDesc = {
         "Ferocious": "+20% to Attack stat",
         "Coward": "-10% to Attack stat",
         "Pacifist": "-20% to Attack stat",
-        
+
         "Hard Skin": "+10% to Defence stat",
         "Burly Body": "+20% to Defence stat",
         "Downtrodden": "-10% to Defence stat",
@@ -84,94 +85,94 @@ SkillDesc = {
 
         "Lucky": "+15% attack, +15% work speed",
         "Legend": "+20% attack, +20% defence, +15% move speed",
-        
+
         "":""
     }
-    
+
 class PalSkills(Enum):
-    UNKNOWN = "Unknown"
-    NONE = "None"
-    
-    ElementResist_Normal_1_PAL = "Abnormal"
-    ElementResist_Dark_1_PAL = "Cheery"
-    ElementResist_Dragon_1_PAL = "Dragonkiller"
-    ElementResist_Ice_1_PAL = "Heated Body"
-    ElementResist_Fire_1_PAL = "Suntan Lover"
-    ElementResist_Leaf_1_PAL = "Botanical Barrier"
-    ElementResist_Earth_1_PAL = "Earthquake Resistant"
-    ElementResist_Thunder_1_PAL = "Insulated Body"
-    ElementResist_Aqua_1_PAL = "Waterproof"
+    UNKNOWN = SkillNameTranslate["Unknown"]
+    NONE = SkillNameTranslate["None"]
 
-    ElementBoost_Normal_1_PAL = "Zen Mind"
-    ElementBoost_Dark_1_PAL = "Veil of Darkness"
-    ElementBoost_Dragon_1_PAL = "Blood of the Dragon"
-    ElementBoost_Ice_1_PAL = "Coldblooded"
-    ElementBoost_Fire_1_PAL = "Pyromaniac"
-    ElementBoost_Leaf_1_PAL = "Fragrant Foliage"
-    ElementBoost_Earth_1_PAL = "Power of Gaia"
-    ElementBoost_Thunder_1_PAL = "Capacitor"
-    ElementBoost_Aqua_1_PAL = "Hydromaniac"
+    ElementResist_Normal_1_PAL = SkillNameTranslate["Abnormal"]
+    ElementResist_Dark_1_PAL = SkillNameTranslate["Cheery"]
+    ElementResist_Dragon_1_PAL = SkillNameTranslate["Dragonkiller"]
+    ElementResist_Ice_1_PAL = SkillNameTranslate["Heated Body"]
+    ElementResist_Fire_1_PAL = SkillNameTranslate["Suntan Lover"]
+    ElementResist_Leaf_1_PAL = SkillNameTranslate["Botanical Barrier"]
+    ElementResist_Earth_1_PAL = SkillNameTranslate["Earthquake Resistant"]
+    ElementResist_Thunder_1_PAL = SkillNameTranslate["Insulated Body"]
+    ElementResist_Aqua_1_PAL = SkillNameTranslate["Waterproof"]
 
-    ElementBoost_Normal_2_PAL = "Celestial Emperor"
-    ElementBoost_Dark_2_PAL = "Lord of the Underworld"
-    ElementBoost_Dragon_2_PAL = "Divine Dragon"
-    ElementBoost_Ice_2_PAL = "Ice Emperor"
-    ElementBoost_Fire_2_PAL = "Flame Emperor"
-    ElementBoost_Leaf_2_PAL = "Spirit Emperor"
-    ElementBoost_Earth_2_PAL = "Earth Emperor"
-    ElementBoost_Thunder_2_PAL = "Lord of Lightning"
-    ElementBoost_Aqua_2_PAL = "Lord of the Sea"
+    ElementBoost_Normal_1_PAL = SkillNameTranslate["Zen Mind"]
+    ElementBoost_Dark_1_PAL = SkillNameTranslate["Veil of Darkness"]
+    ElementBoost_Dragon_1_PAL = SkillNameTranslate["Blood of the Dragon"]
+    ElementBoost_Ice_1_PAL = SkillNameTranslate["Coldblooded"]
+    ElementBoost_Fire_1_PAL = SkillNameTranslate["Pyromaniac"]
+    ElementBoost_Leaf_1_PAL = SkillNameTranslate["Fragrant Foliage"]
+    ElementBoost_Earth_1_PAL = SkillNameTranslate["Power of Gaia"]
+    ElementBoost_Thunder_1_PAL = SkillNameTranslate["Capacitor"]
+    ElementBoost_Aqua_1_PAL = SkillNameTranslate["Hydromaniac"]
 
-    PAL_ALLAttack_up1 = "Brave"
-    PAL_ALLAttack_up2 = "Ferocious"
-    PAL_ALLAttack_down1 = "Coward"
-    PAL_ALLAttack_down2 = "Pacifist"
-    
-    Deffence_up1 = "Hard Skin"
-    Deffence_up2 = "Burly Body"
-    Deffence_down1 = "Downtrodden"
-    Deffence_down2 = "Brittle"
+    ElementBoost_Normal_2_PAL = SkillNameTranslate["Celestial Emperor"]
+    ElementBoost_Dark_2_PAL = SkillNameTranslate["Lord of the Underworld"]
+    ElementBoost_Dragon_2_PAL = SkillNameTranslate["Divine Dragon"]
+    ElementBoost_Ice_2_PAL = SkillNameTranslate["Ice Emperor"]
+    ElementBoost_Fire_2_PAL = SkillNameTranslate["Flame Emperor"]
+    ElementBoost_Leaf_2_PAL = SkillNameTranslate["Spirit Emperor"]
+    ElementBoost_Earth_2_PAL = SkillNameTranslate["Earth Emperor"]
+    ElementBoost_Thunder_2_PAL = SkillNameTranslate["Lord of Lightning"]
+    ElementBoost_Aqua_2_PAL = SkillNameTranslate["Lord of the Sea"]
 
-    TrainerMining_up1 = "Mine Foreman"
-    TrainerLogging_up1 = "Logging Foreman"
-    TrainerATK_UP_1 = "Vanguard"
-    TrainerWorkSpeed_UP_1 = "Motivational Leader"
-    TrainerDEF_UP_1 = "Stronghold Strategist"
+    PAL_ALLAttack_up1 = SkillNameTranslate["Brave"]
+    PAL_ALLAttack_up2 = SkillNameTranslate["Ferocious"]
+    PAL_ALLAttack_down1 = SkillNameTranslate["Coward"]
+    PAL_ALLAttack_down2 = SkillNameTranslate["Pacifist"]
 
-    PAL_Sanity_Up_1 = "Positive Thinker"
-    PAL_Sanity_Up_2 = "Workaholic"
-    PAL_Sanity_Down_1 = "Unstable"
-    PAL_Sanity_Down_2 = "Destructive"
+    Deffence_up1 = SkillNameTranslate["Hard Skin"]
+    Deffence_up2 = SkillNameTranslate["Burly Body"]
+    Deffence_down1 = SkillNameTranslate["Downtrodden"]
+    Deffence_down2 = SkillNameTranslate["Brittle"]
 
-    PAL_FullStomach_Up_1 = "Dainty Eater"
-    PAL_FullStomach_Up_2 = "Diet Lover"
-    PAL_FullStomach_Down_1 = "Glutton"
-    PAL_FullStomach_Down_2 = "Bottomless Stomach"
-    
+    TrainerMining_up1 = SkillNameTranslate["Mine Foreman"]
+    TrainerLogging_up1 = SkillNameTranslate["Logging Foreman"]
+    TrainerATK_UP_1 = SkillNameTranslate["Vanguard"]
+    TrainerWorkSpeed_UP_1 = SkillNameTranslate["Motivational Leader"]
+    TrainerDEF_UP_1 = SkillNameTranslate["Stronghold Strategist"]
 
-    CraftSpeed_up1 = "Serious"
-    CraftSpeed_up2 = "Artisan"
-    CraftSpeed_down1 = "Clumsy"
-    CraftSpeed_down2 = "Slacker"
+    PAL_Sanity_Up_1 = SkillNameTranslate["Positive Thinker"]
+    PAL_Sanity_Up_2 = SkillNameTranslate["Workaholic"]
+    PAL_Sanity_Down_1 = SkillNameTranslate["Unstable"]
+    PAL_Sanity_Down_2 = SkillNameTranslate["Destructive"]
 
-    MoveSpeed_up_1 = "Nimble"
-    MoveSpeed_up_2 = "Runner"
-    MoveSpeed_up_3 = "Swift"
+    PAL_FullStomach_Up_1 = SkillNameTranslate["Dainty Eater"]
+    PAL_FullStomach_Up_2 = SkillNameTranslate["Diet Lover"]
+    PAL_FullStomach_Down_1 = SkillNameTranslate["Glutton"]
+    PAL_FullStomach_Down_2 = SkillNameTranslate["Bottomless Stomach"]
 
-    PAL_CorporateSlave = "Work Slave"
 
-    PAL_rude = "Hooligan"
-    Noukin = "Musclehead"
+    CraftSpeed_up1 = SkillNameTranslate["Serious"]
+    CraftSpeed_up2 = SkillNameTranslate["Artisan"]
+    CraftSpeed_down1 = SkillNameTranslate["Clumsy"]
+    CraftSpeed_down2 = SkillNameTranslate["Slacker"]
 
-    PAL_oraora = "Aggressive"
+    MoveSpeed_up_1 = SkillNameTranslate["Nimble"]
+    MoveSpeed_up_2 = SkillNameTranslate["Runner"]
+    MoveSpeed_up_3 = SkillNameTranslate["Swift"]
 
-    PAL_conceited = "Conceited"
+    PAL_CorporateSlave = SkillNameTranslate["Work Slave"]
 
-    PAL_Masochist = "Masochist"
-    PAL_Sadist = "Sadist"
-    
-    Lucky = "Lucky"
-    Legend = "Legend"
+    PAL_rude = SkillNameTranslate["Hooligan"]
+    Noukin = SkillNameTranslate["Musclehead"]
+
+    PAL_oraora = SkillNameTranslate["Aggressive"]
+
+    PAL_conceited = SkillNameTranslate["Conceited"]
+
+    PAL_Masochist = SkillNameTranslate["Masochist"]
+    PAL_Sadist = SkillNameTranslate["Sadist"]
+
+    Lucky = SkillNameTranslate["Lucky"]
+    Legend = SkillNameTranslate["Legend"]
 
 
 class PalGender(Enum):
@@ -188,7 +189,7 @@ class PalElement:
 
     def GetColour(self):
         return self._colour
-    
+
 class Elements(Enum):
     NONE = PalElement("None", "lightgrey")
     NORMAL = PalElement("Neutral", "#D8A796")
@@ -216,7 +217,7 @@ class PalObject:
             self._img = ImageTk.PhotoImage(Image.open(f'resources/{self._name}.png').resize((240,240)))
         return self._img
 
-    
+
     def GetPrimary(self):
         return self._primary
 
@@ -369,7 +370,7 @@ class PalEntity:
     def __init__(self, data):
         self._data = data
         self._obj = data['value']['Struct']['Struct']['RawData']['Parsed']['object']['SaveParameter']['value']
-        
+
         typename = self._obj['CharacterID']['value']
         self._type = PalType[typename]
         print(f"Created Entity of type {typename}: {self._type.value}")
@@ -422,7 +423,7 @@ class PalEntity:
 
     def GetImage(self):
         return self.GetObject().GetImage()
-    
+
     def GetPrimary(self):
         return self.GetObject().GetPrimary().value
 
@@ -457,7 +458,7 @@ if __name__ == "__main__":
     import os
 
     print(len(PalType))
-    
+
     print(PalType.GrassPanda)
     print(PalType.GrassPanda.name)
     print(PalType.GrassPanda.value)
